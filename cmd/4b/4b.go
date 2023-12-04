@@ -14,7 +14,7 @@ type Card struct {
 
 func main() {
 	scanner := bufio.NewScanner(os.Stdin)
-	cards := []*Card{}
+	var cards []*Card
 	for scanner.Scan() {
 		line := scanner.Text()
 		s1 := strings.Split(line, ":")
@@ -35,14 +35,12 @@ func main() {
 			Matches: matches,
 		})
 	}
+	sum := 0
 	for i, card := range cards {
+		sum += card.Count
 		for j := 1; j <= card.Matches; j++ {
 			cards[i+j].Count += card.Count
 		}
-	}
-	sum := 0
-	for _, card := range cards {
-		sum += card.Count
 	}
 	fmt.Println(sum)
 }
